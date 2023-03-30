@@ -34,15 +34,15 @@ import datetime
 currentTime = datetime.datetime.now()
 
 if currentTime.hour < 12:
-    wish = f" Good morning ({currentTime.strftime('%I:%M:%S %p')}) sweetheart "
+    wish =" Good morning ({currentTime.strftime('%I:%M:%S %p')}) sweetheart "
 elif 12 <= currentTime.hour < 18:
-    wish = f' Good afternoon ({currentTime.strftime('%I:%M:%S %p')}) my Love '
+    wish =' Good afternoon ({currentTime.strftime('%I:%M:%S %p')}) my Love '
 elif 18 <= currentTime.hour < 21:
-    wish = f' Good evening ({currentTime.strftime('%I:%M:%S %p')}) honey '
+    wish ='🦋 Good evening baby 🦋 ({currentTime.strftime('%I:%M:%S %p')}) honey '
 elif 21 <= currentTime.hour and currentTime.minute >= 30:
-    wish = f' Good night ({currentTime.strftime("%I:%M:%S %p")}) my darling '
+    wish =' Good night ({currentTime.strftime("%I:%M:%S %p")}) my darling '
 else:
-    wish = f' Have a good night ({currentTime.strftime("%I:%M:%S %p")}), sleep tight! '
+    wish =' Have a good night ({currentTime.strftime("%I:%M:%S %p")}), sleep tight! '
 
 print(wish)
 
