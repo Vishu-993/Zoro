@@ -36,8 +36,7 @@ elif 12 <= hour < 18:
 elif 18 <= hour < 22:
     print("🦋 Good evening! 🦋")
 else:
-    print("😴bGood night! 😴")
-
+    print("😴 Good night! 😴")
 
 
 # -------------------------------
