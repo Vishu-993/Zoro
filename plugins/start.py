@@ -29,12 +29,17 @@ ZORO_PIC = os.environ.get("ZORO_PIC", "")
 # Part of Day --------------------
 currentTime = datetime.datetime.now()
 
-if currentTime.hour < 12:
+# Check the time of day and choose a greeting
+if currentTime.hour < 10:
     wish = "❤️ Good morning sweetheart ❤️"
-elif 12 <= currentTime.hour < 12:
+elif currentTime.hour < 12:
+    wish = "🌞 Good day my Love 🌞"
+elif currentTime.hour < 18:
     wish = '🤍 Good afternoon my Love 🤍'
-else:
+elif currentTime.hour < 22:
     wish = '🦋 Good evening baby 🦋'
+elif currentTime.hour < 24:
+    wish = '🌙 Good night my dear 🌙'
 
 # -------------------------------
 
