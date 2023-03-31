@@ -64,11 +64,11 @@ async def start(client, message):
                 await message.reply_photo(photo=LAZY_PIC,
                                          caption=txt,
                                          reply_markup=InlineKeyboardMarkup(
-                                             [[InlineKeyboardButton("⏫ UPDATE CHANNEL ⏫", url="https://t.me/CinemaVenoOfficial")],
-                                              [InlineKeyboardButton("🦋 FOLLOW US 🦋", url="https://bit.ly/3FJVSPA")],
-                                              [InlineKeyboardButton("🚸 SUPPORT GROUP 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
-                                             InlineKeyboardButton("🍿 MOVIE CHANNEL 🍿", url='https://t.me/CinemaVenoOfficial')],
-                                             [InlineKeyboardButton("☕ BUY ME A COFFEE ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
+                                             [[InlineKeyboardButton("⏫ Update Channel ⏫", url="https://t.me/CinemaVenoOfficial")],
+                                              [InlineKeyboardButton("🦋 Follow Us 🦋", url="https://bit.ly/3FJVSPA")],
+                                              [InlineKeyboardButton("🚸 Support Group 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
+                                             InlineKeyboardButton("🍿 Movie Channel 🍿", url='https://t.me/CinemaVenoOfficial')],
+                                             [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
                                           ]))
             except:
                 return
@@ -84,11 +84,11 @@ async def start(client, message):
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("⏫ UPDATE CHANNEL ⏫", url="https://t.me/CinemaVenoOfficial")],
-                                          [InlineKeyboardButton("🦋 FOLLOW US 🦋", url="https://bit.ly/3FJVSPA")],
-                                          [InlineKeyboardButton("🚸 SUPPORT GROUP 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
-                                          InlineKeyboardButton("🍿 MOVIE CHANNEL 🍿", url='https://t.me/CinemaVenoOfficial')],
-                                          [InlineKeyboardButton("☕ BUY ME A COFFEE ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
+                                         [[InlineKeyboardButton("⏫ Update Channel ⏫", url="https://t.me/CinemaVenoOfficial")],
+                                          [InlineKeyboardButton("🦋 Follow Us 🦋", url="https://bit.ly/3FJVSPA")],
+                                          [InlineKeyboardButton("🚸 Support Group 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
+                                          InlineKeyboardButton("🍿 Movie Channel 🍿", url='https://t.me/CinemaVenoOfficial')],
+                                          [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
                                           ]))
     
 
@@ -126,11 +126,11 @@ async def send_doc(client, message):
     except:
         await message.reply_text(text=f"Hello dear {message.from_user.first_name}  **we are currently working on this issue**\n\nPlease try to rename files from your another account.\nBecause this BOT can't rename file sent by some ids.\n\nIf you are an **ADMIN** Don't worry ! here we have a solution for you dear {message.from_user.first_name }.\n\nPlease use \n🎗️ `/addpremium your_other_userid` 🆔 to use premium feautres\n\n",
                                   reply_markup=InlineKeyboardMarkup([
-                                                                     [InlineKeyboardButton("🔖 CONTACT ADMIN 🔖", url='https://telegram.me/Vishal_dml')],
-                                                                     [InlineKeyboardButton("🦋 FOLLOW US 🦋", url='https://bit.ly/3FJVSPA')],
-                                                                     [InlineKeyboardButton("🚸 SUPPORT GROUP 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
-                                                                     InlineKeyboardButton("⏫ UPDATE CHANNEL ⏫", url='https://t.me/+9Y0zeiIAFeczMDJl')],
-                                                                     [InlineKeyboardButton("☕ BUY ME A COFFEE ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
+                                                                     [InlineKeyboardButton("🔖 Contact Admin 🔖", url='https://telegram.me/Vishal_dml')],
+                                                                     [InlineKeyboardButton("🦋 Follow Us 🦋", url='https://bit.ly/3FJVSPA')],
+                                                                     [InlineKeyboardButton("🚸 Support Group 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
+                                                                     InlineKeyboardButton("⏫ Update Channel ⏫", url='https://t.me/+9Y0zeiIAFeczMDJl')],
+                                                                     [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
                                                                     ]))
         await message.reply_text(text=f"🦋")
         return 
@@ -176,7 +176,7 @@ async def send_doc(client, message):
                     return
                 pre_check = check_expi(buy_date)
                 if pre_check == True:
-                    await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {__filename__}\n__File Size__ :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
+                    await message.reply_text(f"""__What do you want me to do with this file?\n\n__File Name__\n\n :- {__filename__}\n__File Size__ :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
                     total_rename(int(botid), prrename)
                     total_size(int(botid), prsize, file.file_size)
                 else:
