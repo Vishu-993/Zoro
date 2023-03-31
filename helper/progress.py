@@ -25,9 +25,10 @@ async def progress_for_pyrogram(
 
         color = int(percentage / 5)
         progress = f"**Progress:** {percentage:.2f}%\n" + \
+                            [{'●' * color}{'○' * (20 - color)}]
                    f"╭━━━━❰ PROGRESS BAR ❱━➣\n" + \
                    f"┣⪼ 🗂️ : {humanbytes(current)} | {humanbytes(total)}\n" + \
-                   f"┣⪼ ⏳️ : [{'●' * color}{'○' * (20 - color)}] {percentage:.2f}%\n" + \
+                   f"┣⪼ ⏳️ : {percentage:.2f}%\n" + \
                    f"┣⪼ 🚀 : {humanbytes(speed)}/s\n" + \
                    f"┣⪼ ⏱️ : {estimated_total_time}\n" + \
                    f"╰━━━━━━━━━━━━━━━➣"
