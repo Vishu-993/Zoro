@@ -32,13 +32,13 @@ currentTime = datetime.datetime.now()
 if currentTime.hour < 12:
     wish = "❤️ Good morning sweetheart ❤️"
     am_pm = "am"
-elif 12 <= currentTime.hour < 18:
+elif 12 <= currentTime.hour < 15:
     wish = '🤍 Good afternoon my Love 🤍'
     am_pm = "pm"
-elif 18 <= currentTime.hour < 22:
+elif 15 <= currentTime.hour < 21:
     wish = '🌟 Good evening baby 🌟'
     am_pm = "pm"
-else:
+else: 21 <= currentTime.hour < 24:
     wish = '🌙 Good night my Love 🌙'
     am_pm = "pm"
 
