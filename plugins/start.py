@@ -29,11 +29,6 @@ ZORO_PIC = os.environ.get("ZORO_PIC", "")
 # Part of Day --------------------
 currentTime = datetime.datetime.now()
 
-import datetime
-
-current_time = datetime.datetime.now()
-hour = current_time.hour
-
 if 6 <= hour < 12:
     print("🤍 Good morning! 🤍")
 elif 12 <= hour < 18:
