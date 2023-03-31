@@ -22,22 +22,30 @@ async def progress_for_pyrogram(
 
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
+     
+           def get_progress_bar(percentage: float) -> str:
+    filled = math.floor(percentage / 5)
+    empty = 20 - filled
+    return "[{0}{1}]".format(
+            ''.join(["●" for i in range(filled)]),
+            ''.join(["○" for i in range(empty)])
+        )
+     
+     
+        progress = get_progress_bar(percentage)
 
-        color = int(percentage / 5)
-        progress = f"**Progress:** {percentage:.2f}%\n" + \
-                            [{'●' * color}{'○' * (20 - color)}]
-                   f"╭━━━━❰ PROGRESS BAR ❱━➣\n" + \
-                   f"┣⪼ 🗂️ : {humanbytes(current)} | {humanbytes(total)}\n" + \
-                   f"┣⪼ ⏳️ : {percentage:.2f}%\n" + \
-                   f"┣⪼ 🚀 : {humanbytes(speed)}/s\n" + \
-                   f"┣⪼ ⏱️ : {estimated_total_time}\n" + \
-                   f"╰━━━━━━━━━━━━━━━➣"
+        tmp = "╭━━━━❰ PROGRESS BAR ❱━➣\n" + \
+              f"┣⪼ 🗂️ : {humanbytes(current)} | {humanbytes(total)}\n" + \
+              f"┣⪼ ⏳️ : {round(percentage, 2)}%\n" + \
+              f"┣⪼ 🚀 : {humanbytes(speed)}/s\n" + \
+              f"┣⪼ ⏱️ : {estimated_total_time}\n" + \
+              f"╰━━━━━━━━━━━━━━━➣ {progress}"
 
         try:
             await message.edit(
-                text="{}\n{}".format(
+                text="{}\n {}".format(
                     ud_type,
-                    progress
+                    tmp
                 )
             )
         except:
