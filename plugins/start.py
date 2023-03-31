@@ -50,11 +50,11 @@ async def start(client, message):
         await message.reply_photo(photo=ZORO_PIC,
                                 caption=txt,
                                 reply_markup=InlineKeyboardMarkup(
-                                      [[InlineKeyboardButton("⏫ UPDATE CHANNEL ⏫", url="https://t.me/CinemaVenoOfficial")],
-                                      [InlineKeyboardButton("🦋 FOLLOW US 🦋", url="https://bit.ly/3FJVSPA")],
-                                      [InlineKeyboardButton("🚸 SUPPORT GROUP 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
-                                      InlineKeyboardButton("🍿 MOVIE CHANNEL 🍿", url='https://t.me/CinemaVenoOfficial')],
-                                      [InlineKeyboardButton("☕ BUY ME A COFFEE ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
+                                      [[InlineKeyboardButton("⏫ Update Channel ⏫", url="https://t.me/CinemaVenoOfficial")],
+                                      [InlineKeyboardButton("🦋 Follow Us 🦋", url="https://bit.ly/3FJVSPA")],
+                                      [InlineKeyboardButton("🚸 Support Group 🚸", url='https://t.me/+9Y0zeiIAFeczMDJl'),
+                                      InlineKeyboardButton("🍿 Movie Channel 🍿", url='https://t.me/CinemaVenoOfficial')],
+                                      [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/thh61hoz')]
                                       ]))
         return
     if id:
