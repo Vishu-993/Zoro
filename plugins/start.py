@@ -29,18 +29,20 @@ ZORO_PIC = os.environ.get("ZORO_PIC", "")
 # Part of Day --------------------
 currentTime = datetime.datetime.now()
 
-if currentTime.hour < 12:
-    wish ="🤍 Good morning ({currentTime.strftime('%I:%M:%S %p')}) sweetheart 🤍"
-elif 12 <= currentTime.hour < 18:
-    wish ='💙 Good afternoon ({currentTime.strftime('%I:%M:%S %p')}) my Love 💙'
-elif 18 <= currentTime.hour < 21:
-    wish ='☕ Good evening ({currentTime.strftime('%I:%M:%S %p')}) honey ☕'
-elif 21 <= currentTime.hour and currentTime.minute >= 30:
-    wish ='🦋 Good night ({currentTime.strftime("%I:%M:%S %p")}) my darling 🦋'
-else:
-    wish ='😴 Have a good night ({currentTime.strftime("%I:%M:%S %p")}), sleep tight! 😴'
+import datetime
 
-print(wish)
+current_time = datetime.datetime.now()
+hour = current_time.hour
+
+if 6 <= hour < 12:
+    print("🤍 Good morning! 🤍")
+elif 12 <= hour < 18:
+    print("💙 Good afternoon! 💙")
+elif 18 <= hour < 22:
+    print("🦋 Good evening! 🦋")
+else:
+    print("😴bGood night! 😴")
+
 
 
 # -------------------------------
