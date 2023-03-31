@@ -38,7 +38,7 @@ elif 12 <= currentTime.hour < 15:
 elif 15 <= currentTime.hour < 21:
     wish = '🌟 Good evening baby 🌟'
     am_pm = "pm"
-else: 21 <= currentTime.hour < 24:
+else: 
     wish = '🌙 Good night my Love 🌙'
     am_pm = "pm"
 
