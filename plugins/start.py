@@ -29,15 +29,12 @@ ZORO_PIC = os.environ.get("ZORO_PIC", "")
 # Part of Day --------------------
 currentTime = datetime.datetime.now()
 
-if 6 <= hour < 12:
-    print("🤍 Good morning! 🤍")
-elif 12 <= hour < 18:
-    print("💙 Good afternoon! 💙")
-elif 18 <= hour < 22:
-    print("🦋 Good evening! 🦋")
+if currentTime.hour < 12:
+    wish = "❤️ Good morning sweetheart ❤️"
+elif 12 <= currentTime.hour < 12:
+    wish = '🤍 Good afternoon my Love 🤍'
 else:
-    print("😴 Good night! 😴")
-
+    wish = '🦋 Good evening baby 🦋'
 
 # -------------------------------
 
