@@ -18,7 +18,7 @@ import os
 CHANNEL = os.environ.get('CHANNEL', "")
 STRING = os.environ.get("STRING", "")
 ADMIN = int(os.environ.get("ADMIN", 1484670284))
-bot_username = os.environ.get("BOT_USERNAME","Zoro_Renamer_bot")
+bot_username = os.environ.get("BOT_USERNAME","Zoro_renamer_bot")
 log_channel = int(os.environ.get("LOG_CHANNEL", ""))
 token = os.environ.get('TOKEN', '')
 botid = token.split(':')[0]
@@ -31,16 +31,10 @@ currentTime = datetime.datetime.now()
 
 if currentTime.hour < 12:
     wish = "❤️ Good morning sweetheart ❤️"
-    am_pm = "am"
-elif 12 <= currentTime.hour < 15:
+elif 12 <= currentTime.hour < 12:
     wish = '🤍 Good afternoon my Love 🤍'
-    am_pm = "pm"
-elif 15 <= currentTime.hour < 21:
-    wish = '🌟 Good evening baby 🌟'
-    am_pm = "pm"
-else: 
-    wish = '🌙 Good night my Love 🌙'
-    am_pm = "pm"
+else:
+    wish = '🦋 Good evening baby 🦋'
 
 # -------------------------------
 
@@ -67,7 +61,7 @@ async def start(client, message):
         if old == True:
             try:
                 await client.send_message(id, "Your Friend is Already Using Our Bot")
-                await message.reply_photo(photo=LAZY_PIC,
+                await message.reply_photo(photo=ZORO_PIC,
                                          caption=txt,
                                          reply_markup=InlineKeyboardMarkup(
                                              [[InlineKeyboardButton("⏫ Update Channel ⏫", url="https://t.me/CinemaVenoOfficial")],
@@ -112,7 +106,7 @@ async def send_doc(client, message):
             await message.reply_text("**__You are not subscribed my channel__** ",
                                      reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("⏫ UPDATE CHANNEL ⏫", url=f"https://t.me/CinemaVenoOfficial")]]))
+                                         [[InlineKeyboardButton("⏫ Update Channel ⏫", url=f"https://t.me/CinemaVenoOfficial")]]))
             await client.send_message(log_channel,f"🦋 #ZORO_LOGS 🦋,\n\n**ID** : `{user_id}`\n**Name**: {message.from_user.first_name} {message.from_user.last_name}\n**User-Plan** : {user}\n\n ",
                                                                                                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔖 Restrict User ( **pm** ) 🔖", callback_data="ceasepower")]]))
             return
@@ -172,17 +166,17 @@ async def send_doc(client, message):
             used_limit(message.from_user.id, 0)
         remain = limit - used
         if remain < int(file.file_size):
-            await message.reply_text(f"100% of daily {humanbytes(limit)} data quota exhausted.\n\n  File size detected {humanbytes(file.file_size)}\n  Used Daily Limit {humanbytes(used)}\n\nYou have only **{humanbytes(remain)}** left on your Account.\nIf U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("💰 Upgrade 💰", callback_data="upgrade")]]))
+            await message.reply_text(f"100% of daily {humanbytes(limit)} data quota exhausted.\n\n  File size detected {humanbytes(file.file_size)}\n  Used Daily Limit {humanbytes(used)}\n\nYou have only **{humanbytes(remain)}** left on your Account.\nIf U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
             return
         if value < file.file_size:
             
             if STRING:
                 if buy_date == None:
-                    await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daily Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("💰 Upgrade 💰", callback_data="upgrade")]]))
+                    await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daily Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
                     return
                 pre_check = check_expi(buy_date)
                 if pre_check == True:
-                    await message.reply_text(f"""__What do you want me to do with this file?\n\n__File Name__\n\n :- {__filename__}\n__File Size__ :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
+                    await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- __{filename}__\n\n**File Size** :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
                     total_rename(int(botid), prrename)
                     total_size(int(botid), prsize, file.file_size)
                 else:
@@ -205,6 +199,6 @@ async def send_doc(client, message):
             fileid = file.file_id
             total_rename(int(botid), prrename)
             total_size(int(botid), prsize, file.file_size)
-            await message.reply_text(f"""__What do you want me to do with this file?__\n__File Name__ :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
+            await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- __{filename}__\n\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
                   InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
