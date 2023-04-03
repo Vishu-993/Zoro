@@ -32,33 +32,19 @@ async def progress_for_pyrogram(
 
         progress = get_progress_bar(percentage)
 
-        tmp = "╭━━━━❰ PROGRESS BAR ❱━➣\n" + \
+       tmp = "╭━━━━❰ PROGRESS BAR ❱━➣\n" + \
               "┣⪼ 🗂️ : {0} | {1}\n".format(humanbytes(current), humanbytes(total)) + \
               "┣⪼ ⏳️ : {0}%\n".format(round(percentage, 2)) + \
               "┣⪼ 🚀 : {0}/s\n".format(humanbytes(speed)) + \
               "┣⪼ ⏱️ : {0}\n".format(estimated_total_time) + \
-              "┣⪼ ✖️ : Cancel\n" + \
-              "┗━━━━━━━━━━━━━━━━➣ {0}".format(progress)
-
-        keyboard = [[
-            InlineKeyboardButton(
-                text="🔴 Cancel",
-                callback_data="cancel"
-            ),
-            InlineKeyboardButton(
-                text="🦋 Follow 🦋",
-                url="https://t.me/CinemaVenoOfficial"
-            )
-        ]]
-        reply_markup = InlineKeyboardMarkup(keyboard)
+              "╰━━━━━━━━━━━━━━━➣ {0}".format(progress)
 
         try:
             await message.edit(
                 text="{}\n {}".format(
                     ud_type,
                     tmp
-                ),
-                reply_markup=reply_markup
+                )
             )
         except:
             pass
@@ -85,4 +71,5 @@ def TimeFormatter(milliseconds: int) -> str:
         ((str(hours) + "h, ") if hours else "") + \
         ((str(minutes) + "m, ") if minutes else "") + \
         ((str(seconds) + "s, ") if seconds else "") + \
-        ((str(milliseconds) + "
+        ((str(milliseconds) + "ms, ") if milliseconds else "")
+    return tmp[:-2]
