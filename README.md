@@ -95,20 +95,3 @@
 `/resetpower` - To reset renaming capacity (to default 1.2 GB)  [FOR ADMINS USE ONLY].
  
 `/addpremium` - To upgrade user plan to SILVER - GOLD - DIAMOND  [FOR ADMINS USE ONLY].
-
-
-### 🔗 important_Links
-- [🤩 Create Auto Filter BOT](https://www.youtube.com/watch?v=jw3e4L1u-Vo&t=22s)
-- [🤩 Create FILE TO LINK BOT](https://www.youtube.com/watch?v=h3Uvr15ZPnc)
-- [🤩 Create Movie Request BOT](https://www.youtube.com/watch?v=mIEv7MjLj2U&t=38s)
-- [❣️ Join Youtube](https://www.youtube.com/@LazyDeveloperr)
-
-
-#### 🧡 Respecting... 🧡
-- [🔥 LazyDeveloperr](https://github.com/LazyDeveloperr) 
-- [🔥 lntechnical2](https://github.com/lntechnical2)
-
-### 🤩 INSPIRATION
-<a href="#">
-   <p>❣️ GANGSTER-BABY 🔥</p>
-</a>
