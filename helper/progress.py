@@ -23,33 +23,28 @@ async def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-        progress = get_progress_bar(percentage)
+        progress = "[{0}{1}] \n**Progress**: {2}%\n".format(
+            ''.join(["●" for i in range(math.floor(percentage / 5))]),
+            ''.join(["○" for i in range(20 - math.floor(percentage / 5))]),
+            round(percentage, 2))
 
-        tmp = "╭━━━━❰ PROGRESS BAR ❱━➣\n" + \
-              f"┣⪼ 🗂️ : {humanbytes(current)} | {humanbytes(total)}\n" + \
-              f"┣⪼ ⏳️ : {round(percentage, 2)}%\n" + \
-              f"┣⪼ 🚀 : {humanbytes(speed)}/s\n" + \
-              f"┣⪼ ⏱️ : {estimated_total_time}\n" + \
-              f"╰━━━━━━━━━━━━━━━➣ {progress}"
-
+        tmp = progress + "{0} of {1}\n**Speed**: {2}/s\n**ETA**: {3}\n".format(
+            humanbytes(current),
+            humanbytes(total),
+            humanbytes(speed),
+            # elapsed_time if elapsed_time != '' else "0 s",
+            estimated_total_time if estimated_total_time != '' else "0 s"
+        )
         try:
             await message.edit(
-                text="{}\n {}".format(
-                    ud_type,
-                    tmp
+                text="{}\n\n{}".format(ud_type, tmp),               
+                reply_markup=InlineKeyboardMarkup( [[
+                    InlineKeyboardButton("⨳  C L Ф S Ξ  ⨳", callback_data="cancel")
+                    ]]
                 )
             )
         except:
             pass
-
-
-def get_progress_bar(percentage: float) -> str:
-    filled = math.floor(percentage / 5)
-    empty = 20 - filled
-    return "[{0}{1}]".format(
-            ''.join(["●" for i in range(filled)]),
-            ''.join(["○" for i in range(empty)])
-        )
 
 
 def humanbytes(size):
