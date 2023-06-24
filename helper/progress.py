@@ -1,19 +1,12 @@
 import math
 import time
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-async def progress_for_pyrogram(
-    current,
-    total,
-    ud_type,
-    message,
-    start
-):
-
+async def progress_for_pyrogram(current, total, ud_type, message, start):
     now = time.time()
     diff = now - start
-    if round(diff % 10.00) == 0 or current == total:
-        # if round(current / total * 100, 0) % 5 == 0:
+    if round(diff % 10.0) == 0 or current == total:
         percentage = current * 100 / total
         speed = current / diff
         elapsed_time = round(diff) * 1000
@@ -24,34 +17,30 @@ async def progress_for_pyrogram(
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
         progress = "[{0}{1}] \n**Progress**: {2}%\n".format(
-            ''.join(["●" for i in range(math.floor(percentage / 5))]),
-            ''.join(["○" for i in range(20 - math.floor(percentage / 5))]),
-            round(percentage, 2))
+            ''.join(["●" for _ in range(math.floor(percentage / 5))]),
+            ''.join(["○" for _ in range(20 - math.floor(percentage / 5))]),
+            round(percentage, 2)
+        )
 
         tmp = progress + "{0} of {1}\n**Speed**: {2}/s\n**ETA**: {3}\n".format(
             humanbytes(current),
             humanbytes(total),
             humanbytes(speed),
-            # elapsed_time if elapsed_time != '' else "0 s",
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
         try:
             await message.edit(
-                text="{}\n {}".format(
-                    ud_type,
-                    tmp
-                )
+                text="{}\n\n{}".format(ud_type, tmp),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⨳ C L Ф S Ξ ⨳", callback_data="cancel")]])
             )
-        except:
+        except Exception:
             pass
 
 
 def humanbytes(size):
-    # https://stackoverflow.com/a/49361727/4723940
-    # 2**10 = 1024
     if not size:
         return ""
-    power = 2**10
+    power = 2 ** 10
     n = 0
     Dic_powerN = {0: ' ', 1: 'K', 2: 'M', 3: 'G', 4: 'T'}
     while size > power:
@@ -65,9 +54,15 @@ def TimeFormatter(milliseconds: int) -> str:
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
-    tmp = ((str(days) + "d, ") if days else "") + \
-        ((str(hours) + "h, ") if hours else "") + \
-        ((str(minutes) + "m, ") if minutes else "") + \
-        ((str(seconds) + "s, ") if seconds else "") + \
-        ((str(milliseconds) + "ms, ") if milliseconds else "")
+    tmp = (
+        (str(days) + "d, ") if days else ""
+    ) + (
+        (str(hours) + "h, ") if hours else ""
+    ) + (
+        (str(minutes) + "m, ") if minutes else ""
+    ) + (
+        (str(seconds) + "s, ") if seconds else ""
+    ) + (
+        (str(milliseconds) + "ms, ") if milliseconds else ""
+    )
     return tmp[:-2]
