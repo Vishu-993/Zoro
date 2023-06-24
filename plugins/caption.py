@@ -6,6 +6,8 @@ from helper.database import *
 async def add_caption(client, message):
     if len(message.command) == 1:
        return await message.reply_text("**♻️ Custom Caption ♻️\n\nBy default all messages will be forwarded with its default captions\n\nInstead of this, you can set a custom caption\n\nFilling options:\n{caption} : `Default Caption Of Messages`\n{name} : `File Name` \n{size} :`File Size`**")
+       if caption:
+       await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`")
     caption = message.text.split(" ", 1)[1]
     addcaption(int(message.chat.id), caption)
     await message.reply_text("**Your Caption successfully added ✅**")
