@@ -19,18 +19,22 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
         filled_blocks = math.floor(percentage / 5)
         empty_blocks = 20 - filled_blocks
 
-        progress_bar = "🔵" * filled_blocks + "⚪" * empty_blocks
+        progress_bar = "▫️" * filled_blocks + "➖" * empty_blocks
 
-        progress = f"Progress: {round(percentage, 2)}%\n\n{progress_bar}"
-
-        tmp = f"🗂️ : {humanbytes(current)} | {humanbytes(total)}\n⏳️ : {elapsed_time}\n🚀 : {humanbytes(speed)}/s\n⏱️ : {estimated_total_time}"
+        tmp = PROGRESS_BAR.format(
+            round(percentage, 2),
+            humanbytes(current),
+            humanbytes(total),
+            humanbytes(speed),
+            estimated_total_time if estimated_total_time != '' else '0 s'
+        )
 
         follow_button = InlineKeyboardButton("🦋 Follow 🦋", url="https://t.me/CinemaVenoOfficial")
         cancel_button = InlineKeyboardButton("⨳ C L Ф S Ξ ⨳", callback_data="cancel")
 
         try:
             await message.edit(
-                text=f"{ud_type}\n\n{progress}\n\n{tmp}",
+                text=f"{ud_type}\n\n{progress_bar}\n\n{tmp}",
                 reply_markup=InlineKeyboardMarkup([[follow_button], [cancel_button]])
             )
         except Exception:
@@ -46,7 +50,7 @@ def humanbytes(size):
     while size > power:
         size /= power
         n += 1
-    return f"{round(size, 2)} {Dic_powerN[n]}B"
+    return str(round(size, 2)) + " " + Dic_powerN[n] + 'B'
 
 
 def TimeFormatter(milliseconds: int) -> str:
@@ -55,14 +59,21 @@ def TimeFormatter(milliseconds: int) -> str:
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-        (f"{days}d, ") if days else ""
+        (str(days) + "d, ") if days else ""
     ) + (
-        (f"{hours}h, ") if hours else ""
+        (str(hours) + "h, ") if hours else ""
     ) + (
-        (f"{minutes}m, ") if minutes else ""
+        (str(minutes) + "m, ") if minutes else ""
     ) + (
-        (f"{seconds}s, ") if seconds else ""
+        (str(seconds) + "s, ") if seconds else ""
     ) + (
-        (f"{milliseconds}ms, ") if milliseconds else ""
+        (str(milliseconds) + "ms, ") if milliseconds else ""
     )
     return tmp[:-2]
+PROGRESS_BAR = """\n
+╭━━━━❰ PROGRESS BAR ❱━➣
+┣⪼ 🗂️ : {1} | {2}
+┣⪼ ⏳️ : {0}%
+┣⪼ 🚀 : {3}/s
+┣⪼ ⏱️ : {4}
+╰━━━━━━━━━━━━━━━➣ """
