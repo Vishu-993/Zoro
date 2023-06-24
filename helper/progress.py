@@ -16,22 +16,26 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-        progress = "[{0}{1}] \n**Progress**: {2}%\n".format(
-            ''.join(["●" for _ in range(math.floor(percentage / 5))]),
-            ''.join(["○" for _ in range(20 - math.floor(percentage / 5))]),
-            round(percentage, 2)
-        )
+        filled_blocks = math.floor(percentage / 5)
+        empty_blocks = 20 - filled_blocks
 
-        tmp = progress + "{0} of {1}\n**Speed**: {2}/s\n**ETA**: {3}\n".format(
+        progress_bar = "◼️" * filled_blocks + "◻️" * empty_blocks
+
+        tmp = PROGRESS_BAR.format(
+            round(percentage, 2),
             humanbytes(current),
             humanbytes(total),
             humanbytes(speed),
-            estimated_total_time if estimated_total_time != '' else "0 s"
+            estimated_total_time if estimated_total_time != '' else '0 s'
         )
+
+        follow_button = InlineKeyboardButton("Follow", url="https://example.com/follow")
+        cancel_button = InlineKeyboardButton("⨳ C L Ф S Ξ ⨳", callback_data="cancel")
+
         try:
             await message.edit(
-                text="{}\n\n{}".format(ud_type, tmp),
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⨳ C L Ф S Ξ ⨳", callback_data="cancel")]])
+                text=f"{ud_type}\n\n{progress_bar}\n\n{tmp}",
+                reply_markup=InlineKeyboardMarkup([[follow_button], [cancel_button]])
             )
         except Exception:
             pass
@@ -66,3 +70,12 @@ def TimeFormatter(milliseconds: int) -> str:
         (str(milliseconds) + "ms, ") if milliseconds else ""
     )
     return tmp[:-2]
+
+
+PROGRESS_BAR = """\n
+╭━━━━❰ PROGRESS BAR ❱━➣
+┣⪼ 🗂️ : {1} | {2}
+┣⪼ ⏳️ : {0}%
+┣⪼ 🚀 : {3}/s
+┣⪼ ⏱️ : {4}
+╰━━━━━━━━━━━━━━━➣ """
