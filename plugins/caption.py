@@ -19,7 +19,7 @@ async def delete_caption(client, message):
     delcaption(int(message.chat.id))
     await message.reply_text("**Your caption successfully deleted ✅**")
                                        
-@Client.on_message(filters.private & filters.command('view_caption'))
+@Client.on_message(filters.private & filters.command('see_caption'))
 async def see_caption(client, message): 
     caption = find(int(message.chat.id))[1]
     if caption:
