@@ -8,75 +8,71 @@ async def add_caption(client, message):
     if len(message.command) == 1:
         caption = find(int(message.chat.id))[1]
         if caption:
-            msg = await message.reply_text(f"Your custom caption is:\n\n`{caption}`",
-                                           reply_markup=InlineKeyboardMarkup([
-                                               [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
-                                               [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
-                                           ]))
-            await asyncio.sleep(20)
-            await msg.delete()
+            msg = await message.reply_text(
+                f"Your custom caption is:\n\n`{caption}`",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")]
+                ])
+            )
         else:
-            await message.reply_text("**Give me a caption to set.\n\nExample: `/set_caption {filename}\n\n💾 Size: {filesize}\n\n⏰ Duration: {duration}`**")
+            msg = await message.reply_text(
+                "**Give me a caption to set.\n\nExample: `/set_caption {filename}\n\n💾 Size: {filesize}\n\n⏰ Duration: {duration}`**",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("View Caption", callback_data="view_caption")]
+                ])
+            )
+        await asyncio.sleep(5)  # Wait for 5 seconds
         await message.delete()
-        return
-    
-    caption = message.text.split(" ", 1)[1]
-    addcaption(int(message.chat.id), caption)
-    await message.reply_text("**🙂 Your caption successfully added ✅**")
-    await message.delete()
+        await msg.delete()
 
 @Client.on_message(filters.private & filters.command('delete_caption'))
 async def delete_caption(client, message):
     caption = find(int(message.chat.id))[1]
     if not caption:
-        msg = await message.reply_text("**🫠 You don't have any custom caption 🫠**")
-    else:
-        delcaption(int(message.chat.id))
-        msg = await message.reply_text("**😶‍🌫️ Your caption successfully deleted ✅**")
-    await asyncio.sleep(20)
-    await msg.delete()
+        await message.reply_text("**🫠 You don't have any custom caption 🫠**")
+        return
+    delcaption(int(message.chat.id))
+    await message.reply_text("**😶‍🌫️ Your caption successfully deleted ✅**")
+    await asyncio.sleep(5)  # Wait for 5 seconds
     await message.delete()
 
 @Client.on_message(filters.private & filters.command('view_caption'))
 async def view_caption(client, message):
     caption = find(int(message.chat.id))[1]
     if caption:
-        msg = await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`")
+        msg = await message.reply_text(
+            f"<b><u>Your Caption:</b></u>\n\n`{caption}`",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")]
+            ])
+        )
+        await asyncio.sleep(5)  # Wait for 5 seconds
+        await message.delete()
+        await msg.delete()
     else:
-        msg = await message.reply_text("**You don't have any custom caption**")
-    await asyncio.sleep(20)
-    await msg.delete()
+        await message.reply_text("**You don't have any custom caption**")
+        await asyncio.sleep(5)  # Wait for 5 seconds
+        await message.delete()
+
+@Client.on_message()
+async def handle_message(client, message):
+    await asyncio.sleep(5)  # Wait for 5 seconds
     await message.delete()
 
 @Client.on_callback_query()
 async def handle_callbacks(client, callback_query):
-    if callback_query.data == "edit_caption":
-        await edit_caption(client, callback_query)
-    elif callback_query.data == "delete_caption":
+    if callback_query.data == "delete_caption":
         await delete_caption(client, callback_query)
+    elif callback_query.data == "view_caption":
+        await view_caption(client, callback_query)
+    await asyncio.sleep(5)  # Wait for 5 seconds
+    await callback_query.message.delete()
 
-async def edit_caption(client, callback_query):
-    chat_id = callback_query.message.chat.id
-    caption = find(int(chat_id))[1]
-    if caption:
-        msg = await client.send_message(chat_id, f"Your current caption is:\n\n`{caption}`\n\nSend me the new caption.")
-    else:
-        msg = await client.send_message(chat_id, "You don't have any custom caption. Send me the new caption.")
-    await asyncio.sleep(20)
-    await msg.delete()
+async def main():
+    # Create your Pyrogram client and start it
+    client = Client("session_name")
+    await client.start()
+    await client.run()
 
-async def delete_caption(client, callback_query):
-    chat_id = callback_query.message.chat.id
-    caption = find(int(chat_id))[1]
-    if caption:
-        delcaption(int(chat_id))
-        msg = await client.send_message(chat_id, "**😶‍🌫️ Your caption successfully deleted ✅**")
-    else:
-        msg = await client.send_message(chat_id, "**🫠 You don't have any custom caption to delete 🫠**")
-    await asyncio.sleep(20)
-    await msg.delete()
-
-app = Client("caption_bot")
-
-if __name__ == "__main__":
-    app
+if __name__ == '__main__':
+    asyncio.run(main())
