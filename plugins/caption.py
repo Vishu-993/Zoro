@@ -11,9 +11,7 @@ async def add_caption(client, message):
         if caption:
             await message.reply_text(f"Your custom caption is:\n\n`{caption}`",
                                      reply_markup=InlineKeyboardMarkup([
-                                         [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
-                                         [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
-                                         [InlineKeyboardButton("View Caption", callback_data="view_caption")]
+                                         [InlineKeyboardButton("Edit Caption", callback_data="edit_caption"),InlineKeyboardButton("Delete Caption", callback_data="delete_caption"),InlineKeyboardButton("View Caption", callback_data="view_caption")]
                                      ]))
         else:
             await message.reply_text("**Give me a caption to set.\n\nExample: `/set_caption {filename}\n\n💾 Size: {filesize}\n\n⏰ Duration: {duration}`**")
@@ -42,8 +40,8 @@ async def view_caption(client, message):
         sent_message = await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`",
                                                 reply_markup=reply_markup)
 
-        # Schedule self-deletion of buttons after 20 seconds
-        await asyncio.sleep(20)
+        # Schedule self-deletion of buttons after 5 seconds
+        await asyncio.sleep(5)
         try:
             await sent_message.edit_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`")
         except MessageNotModified:
@@ -78,4 +76,3 @@ async def edit_caption(client, callback_query):
     else:
         await client.send_message(chat_id, "You don't have any custom caption. Send me the new caption.")
 
-async def delete
