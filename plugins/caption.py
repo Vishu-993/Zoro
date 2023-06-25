@@ -7,7 +7,13 @@ async def add_caption(client, message):
     if len(message.command) == 1:
         caption = find(int(message.chat.id))[1]
         if caption:
-            await message.reply_text(f"Your custom caption is:\n\n`{caption}`")
+            await message.reply_text(
+                f"Your custom caption is:\n\n`{caption}`",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
+                    [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")]
+                ])
+            )
         else:
             await message.reply_text("**Give me a caption to set.\n\nExample: `/set_caption {filename}\n\n💾 Size: {filesize}\n\n⏰ Duration: {duration}`**")
         return
@@ -29,6 +35,7 @@ async def delete_caption(client, message):
 async def see_caption(client, message):
     caption = find(int(message.chat.id))[1]
     if caption:
-        await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`")
+        await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`",
+                                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Delete Caption", callback_data="delete_caption")]]))
     else:
         await message.reply_text("**You don't have any custom caption**")
