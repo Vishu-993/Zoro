@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.errors import MessageNotModified
 from helper.database import *
+import asyncio
 
 @Client.on_message(filters.private & filters.command('set_caption'))
 async def add_caption(client, message):
@@ -21,7 +23,7 @@ async def add_caption(client, message):
     addcaption(int(message.chat.id), caption)
     await message.reply_text("**🙂 Your caption successfully added ✅**")
 
-@Client.on_message(filters.private & filters.command('del_caption'))
+@Client.on_message(filters.private & filters.command('delete_caption'))
 async def delete_caption(client, message):
     caption = find(int(message.chat.id))[1]
     if not caption:
@@ -30,16 +32,23 @@ async def delete_caption(client, message):
     delcaption(int(message.chat.id))
     await message.reply_text("**😶‍🌫️ Your caption successfully deleted ✅**")
 
-@Client.on_message(filters.private & filters.command('see_caption'))
-async def see_caption(client, message):
+@Client.on_message(filters.private & filters.command('view_caption'))
+async def view_caption(client, message):
     caption = find(int(message.chat.id))[1]
     if caption:
-        await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`",
-                                 reply_markup=InlineKeyboardMarkup([
-                                     [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
-                                     [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
-                                     [InlineKeyboardButton("View Caption", callback_data="view_caption")]
-                                 ]))
+        view_button = InlineKeyboardButton("View Caption", callback_data="view_caption")
+        reply_markup = InlineKeyboardMarkup([[view_button]])
+
+        sent_message = await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`",
+                                                reply_markup=reply_markup)
+
+        # Schedule self-deletion of buttons after 20 seconds
+        await asyncio.sleep(20)
+        try:
+            await sent_message.edit_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`")
+        except MessageNotModified:
+            pass
+        await sent_message.edit_reply_markup(reply_markup=None)
     else:
         await message.reply_text("**You don't have any custom caption**")
 
@@ -51,6 +60,15 @@ async def handle_callbacks(client, callback_query):
         await delete_caption(client, callback_query)
     elif callback_query.data == "view_caption":
         await view_caption(client, callback_query)
+        try:
+            await callback_query.message.edit_reply_markup(reply_markup=None)
+        except MessageNotModified:
+            pass
+        await asyncio.sleep(20)
+        try:
+            await callback_query.message.delete()
+        except MessageNotModified:
+            pass
 
 async def edit_caption(client, callback_query):
     chat_id = callback_query.message.chat.id
@@ -60,15 +78,4 @@ async def edit_caption(client, callback_query):
     else:
         await client.send_message(chat_id, "You don't have any custom caption. Send me the new caption.")
 
-async def delete_caption(client, callback_query):
-    chat_id = callback_query.message.chat.id
-    caption = find(int(chat_id))[1]
-    if caption:
-        delcaption(int(chat_id))
-        await client.send_message(chat_id, "**😶‍🌫️ Your caption successfully deleted ✅**")
-    else:
-        await client.send_message(chat_id, "**🫠 You don't have any custom caption to delete 🫠**")
-
-async def view_caption(client, callback_query):
-    chat_id = callback_query.message.chat.id
-   
+async def
