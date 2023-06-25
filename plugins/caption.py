@@ -59,7 +59,7 @@ async def handle_callbacks(client, callback_query):
     elif callback_query.data == "delete_caption":
         await delete_caption(client, callback_query)
     elif callback_query.data == "view_caption":
-        await view_caption(client, callback_query.message)  # Pass the message object
+        await view_caption(client, callback_query)
         try:
             await callback_query.message.edit_reply_markup(reply_markup=None)
         except MessageNotModified:
@@ -74,4 +74,8 @@ async def edit_caption(client, callback_query):
     chat_id = callback_query.message.chat.id
     caption = find(int(chat_id))[1]
     if caption:
-        await client.send_message(chat_id, f"Your current caption is:\n
+        await client.send_message(chat_id, f"Your current caption is:\n\n`{caption}`\n\nSend me the new caption.")
+    else:
+        await client.send_message(chat_id, "You don't have any custom caption. Send me the new caption.")
+
+# Create your Pyrogram client and start it
