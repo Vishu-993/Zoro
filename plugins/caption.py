@@ -11,7 +11,9 @@ async def add_caption(client, message):
         if caption:
             await message.reply_text(f"Your custom caption is:\n\n`{caption}`",
                                      reply_markup=InlineKeyboardMarkup([
-                                         [InlineKeyboardButton("Edit Caption", callback_data="edit_caption"),InlineKeyboardButton("Delete Caption", callback_data="delete_caption"),InlineKeyboardButton("View Caption", callback_data="view_caption")]
+                                         [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
+                                         [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
+                                         [InlineKeyboardButton("View Caption", callback_data="view_caption")]
                                      ]))
         else:
             await message.reply_text("**Give me a caption to set.\n\nExample: `/set_caption {filename}\n\n💾 Size: {filesize}\n\n⏰ Duration: {duration}`**")
@@ -57,7 +59,7 @@ async def handle_callbacks(client, callback_query):
     elif callback_query.data == "delete_caption":
         await delete_caption(client, callback_query)
     elif callback_query.data == "view_caption":
-        await view_caption(client, callback_query)
+        await view_caption(client, callback_query.message)  # Pass the message object
         try:
             await callback_query.message.edit_reply_markup(reply_markup=None)
         except MessageNotModified:
@@ -72,7 +74,4 @@ async def edit_caption(client, callback_query):
     chat_id = callback_query.message.chat.id
     caption = find(int(chat_id))[1]
     if caption:
-        await client.send_message(chat_id, f"Your current caption is:\n\n`{caption}`\n\nSend me the new caption.")
-    else:
-        await client.send_message(chat_id, "You don't have any custom caption. Send me the new caption.")
-
+        await client.send_message(chat_id, f"Your current caption is:\n
