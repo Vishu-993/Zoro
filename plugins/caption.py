@@ -76,6 +76,3 @@ async def edit_caption(client, callback_query):
     if caption:
         await client.send_message(chat_id, f"Your current caption is:\n\n`{caption}`\n\nSend me the new caption.")
     else:
-        await client.send_message(chat_id, "You don't have any custom caption. Send me the new caption.")
-
-async def
