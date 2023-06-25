@@ -10,7 +10,8 @@ async def add_caption(client, message):
             await message.reply_text(f"Your custom caption is:\n\n`{caption}`",
                                      reply_markup=InlineKeyboardMarkup([
                                          [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
-                                         [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")]
+                                         [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
+                                         [InlineKeyboardButton("View Caption", callback_data="view_caption")]
                                      ]))
         else:
             await message.reply_text("**Give me a caption to set.\n\nExample: `/set_caption {filename}\n\n💾 Size: {filesize}\n\n⏰ Duration: {duration}`**")
@@ -36,7 +37,8 @@ async def see_caption(client, message):
         await message.reply_text(f"<b><u>Your Caption:</b></u>\n\n`{caption}`",
                                  reply_markup=InlineKeyboardMarkup([
                                      [InlineKeyboardButton("Edit Caption", callback_data="edit_caption")],
-                                     [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")]
+                                     [InlineKeyboardButton("Delete Caption", callback_data="delete_caption")],
+                                     [InlineKeyboardButton("View Caption", callback_data="view_caption")]
                                  ]))
     else:
         await message.reply_text("**You don't have any custom caption**")
@@ -47,6 +49,8 @@ async def handle_callbacks(client, callback_query):
         await edit_caption(client, callback_query)
     elif callback_query.data == "delete_caption":
         await delete_caption(client, callback_query)
+    elif callback_query.data == "view_caption":
+        await view_caption(client, callback_query)
 
 async def edit_caption(client, callback_query):
     chat_id = callback_query.message.chat.id
@@ -65,5 +69,6 @@ async def delete_caption(client, callback_query):
     else:
         await client.send_message(chat_id, "**🫠 You don't have any custom caption to delete 🫠**")
 
-app = Client("caption_bot")
-app.run()
+async def view_caption(client, callback_query):
+    chat_id = callback_query.message.chat.id
+   
