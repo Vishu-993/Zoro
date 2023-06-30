@@ -31,12 +31,12 @@ async def check_alive(_, message):
         caption=f"┌─❖\n"
                 f"│「 𝗛𝗶 👋 」\n"
                 "└┬❖\n"
-                 f"  │✑ 𝙃𝙚𝙡𝙡𝙤, 🈂️{message.from_user.mention}\n"
-                 f"  │✑ 𝙈𝙮𝙨𝙚𝙡𝙛 📍 <a href=https://t.me/Zoro_Renamer_bot>ʐօʀօ</a>\n"
-                 f"  │✑ A bot developed by <a href=https://t.me/CinemaVenoOfficial>ᶜᵛᵒ</a>\n"
-                 f"  │✑ 𝙑𝙚𝙧𝙨𝙞𝙤𝙣: ♻️{get_bot_version()}\n"
-                 f"  │✑ 𝘽𝙤𝙩 𝙍𝙪𝙣𝙩𝙞𝙢𝙚: 🛰️{elapsed_time_formatted}\n"
-                 "  └───────────────┈ ⳹",
+                 f"   │✑ 𝙃𝙚𝙡𝙡𝙤, 🈂️{message.from_user.mention}\n"
+                 f"   │✑ 𝙈𝙮𝙨𝙚𝙡𝙛 📍 <a href=https://t.me/Zoro_Renamer_bot>ʐօʀօ</a>\n"
+                 f"   │✑ A bot developed by <a href=https://t.me/CinemaVenoOfficial>ᶜᵛᵒ</a>\n"
+                 f"   │✑ 𝙑𝙚𝙧𝙨𝙞𝙤𝙣: ♻️{get_bot_version()}\n"
+                 f"   │✑ 𝘽𝙤𝙩 𝙍𝙪𝙣𝙩𝙞𝙢𝙚: 🛰️{elapsed_time_formatted}\n"
+                 "   └───────────────┈ ⳹",
         reply_markup=keyboard
     )
 
