@@ -31,13 +31,19 @@ currentTime = datetime.datetime.now()
 
 if currentTime.hour < 12:
     wish = "❤️ Good morning sweetheart ❤️"
+    period = "AM"
 elif 12 <= currentTime.hour < 16:
     wish = '🤍 Good afternoon my Love 🤍'
+    period = "PM"
 elif 16 <= currentTime.hour < 21:
     wish = '🦋 Good evening baby 🦋'
+    period = "PM"
 else:
     wish = '🌙 Good night my sweetie 🌙'
+    period = "PM"
 
+hour_12_format = currentTime.strftime("%I:%M %p")
+final_wish = f"{wish} ({hour_12_format} {period})"
 
 # -------------------------------
 
