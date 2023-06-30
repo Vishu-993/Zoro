@@ -1,7 +1,8 @@
+import os
 import datetime
 import random
 import time
-import os
+import telegram
 
 # Generating a random restart time between 2 and 16 minutes, and 0 to 59 seconds
 restart_time_minutes = random.randint(2, 16)
@@ -9,8 +10,10 @@ restart_time_seconds = random.randint(0, 59)
 restart_time = datetime.timedelta(minutes=restart_time_minutes, seconds=restart_time_seconds)
 
 # Telegram bot setup
-bot_token = int(os.environ.get("TOKEN", ""))
+bot_token = os.environ.get("TOKEN", "")
 support_group_id = int(os.environ.get("GROUP_ID", ""))
+
+bot = telegram.Bot(token=bot_token)
 
 # Restart flag
 is_restarted = True
