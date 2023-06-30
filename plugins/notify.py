@@ -12,8 +12,6 @@ restart_time = datetime.timedelta(minutes=restart_time_minutes, seconds=restart_
 bot_token = int(os.environ.get("TOKEN", ""))
 support_group_id = int(os.environ.get("GROUP_ID", ""))
 
-bot = telegram.Bot(token=bot_token)
-
 # Restart flag
 is_restarted = True
 
