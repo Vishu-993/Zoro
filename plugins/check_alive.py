@@ -59,7 +59,7 @@ async def series(_, message):
 
 def get_bot_version():
     # Replace with the code to fetch the bot version from wherever it's stored
-    return "1.0.0"
+    return "1.3.8"
     
     
 # Start time of the bot
