@@ -17,7 +17,7 @@ import os
 
 CHANNEL = os.environ.get('CHANNEL', "")
 STRING = os.environ.get("STRING", "")
-ADMIN = int(os.environ.get("ADMIN", 1484670284))
+ADMIN = int(os.environ.get("ADMIN",))
 bot_username = os.environ.get("BOT_USERNAME","Zoro_renamer_bot")
 log_channel = int(os.environ.get("LOG_CHANNEL", ""))
 token = os.environ.get('TOKEN', '')
@@ -179,7 +179,7 @@ async def send_doc(client, message):
                     return
                 pre_check = check_expi(buy_date)
                 if pre_check == True:
-                    await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- `__{filename}__`\n\n**File Size** :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
+                    await message.reply_text(f"""What do you want me to do with this file?\n**File Name** :- `{filename}`\n\n**File Size** :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
                     total_rename(int(botid), prrename)
                     total_size(int(botid), prsize, file.file_size)
                 else:
@@ -202,6 +202,6 @@ async def send_doc(client, message):
             fileid = file.file_id
             total_rename(int(botid), prrename)
             total_size(int(botid), prsize, file.file_size)
-            await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- __{filename}__\n\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
+            await message.reply_text(f"""What do you want me to do with this file?\n**File Name** :- `{filename}`\n\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
                   InlineKeyboardButton("⏳ Cancel", callback_data="cancel")]]))
