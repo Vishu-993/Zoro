@@ -20,19 +20,21 @@ is_restarted = True
 bot = Client("my_bot", bot_token=bot_token)
 
 # Sending the restart message to the support group
-def send_restart_message():
+async def send_restart_message():
     restart_message = "⚡ Bot Restarted ⚡\n"
     restart_message += f"🥂 Time Taken: {restart_time_minutes} Minutes {restart_time_seconds} Seconds"
 
-    bot.send_message(chat_id=support_group_id, text=restart_message)
+    await bot.send_message(chat_id=support_group_id, text=restart_message)
 
 # Delay before sending the restart message
 time.sleep(5)  # Adjust the delay as needed
 
 # Check restart flag and send message
-try:
-    if is_restarted:
-        with bot:
-            send_restart_message()
-except Exception as e:
-    print("An error occurred:", str(e))
+if is_restarted:
+    async def main():
+        await bot.start()
+        await send_restart_message()
+        await bot.stop()
+
+    with bot:
+        bot.loop.run_until_complete(main())
