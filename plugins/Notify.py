@@ -1,10 +1,9 @@
-import os
+import osimport osimport osimport os
 import datetime
 import random
 import time
-import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CallbackQueryHandler
+import InlineKeyboardButton, InlineKeyboardMarkup
+import Updater, CallbackQueryHandler
 
 # Generating a random restart time between 2 and 16 minutes, and 0 to 59 seconds
 restart_time_minutes = random.randint(2, 16)
@@ -12,10 +11,9 @@ restart_time_seconds = random.randint(0, 59)
 restart_time = datetime.timedelta(minutes=restart_time_minutes, seconds=restart_time_seconds)
 
 # Telegram bot setup
-bot_token = int(os.environ.get("TOKEN", ""))
+bot_token = os.environ.get("TOKEN", "")
 support_group_id = int(os.environ.get("GROUP_ID", ""))
 
-bot = telegram.Bot(token=bot_token)
 updater = Updater(token=bot_token)
 dispatcher = updater.dispatcher
 
@@ -23,7 +21,7 @@ dispatcher = updater.dispatcher
 is_restarted = True
 
 # Sending the restart message to the support group
-def send_restart_message():
+def send_restart_message(update, context):
     restart_message = "⚡ Bot Restarted ⚡\n"
     restart_message += f"🥂 Time Taken: {restart_time_minutes} Minutes {restart_time_seconds} Seconds"
 
@@ -34,7 +32,7 @@ def send_restart_message():
     reply_markup = InlineKeyboardMarkup([[button]])
 
     # Send the message with the button to the support group
-    bot.send_message(chat_id=support_group_id, text=restart_message, reply_markup=reply_markup)
+    context.bot.send_message(chat_id=support_group_id, text=restart_message, reply_markup=reply_markup)
 
 # Handler for button click event
 def button_click_handler(update, context):
@@ -52,5 +50,5 @@ time.sleep(5)  # Adjust the delay as needed
 
 # Check restart flag and send message
 if is_restarted:
-    send_restart_message()
+    send_restart_message(None, updater.dispatcher)
 
