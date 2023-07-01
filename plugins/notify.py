@@ -30,6 +30,9 @@ def send_restart_message():
 time.sleep(5)  # Adjust the delay as needed
 
 # Check restart flag and send message
-if is_restarted:
-    with bot:
-        send_restart_message()
+try:
+    if is_restarted:
+        with bot:
+            send_restart_message()
+except Exception as e:
+    print("An error occurred:", str(e))
