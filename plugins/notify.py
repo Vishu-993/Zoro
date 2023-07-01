@@ -2,7 +2,7 @@ import time
 import os
 import telegram
 
-BOT_TOKEN = int(os.environ.get("TOKEN", "")
+BOT_TOKEN = int(os.environ.get("TOKEN", ""))
 GROUP_CHAT_ID = int(os.environ.get("GROUP_ID", ""))
 
 def bot_restarted():
