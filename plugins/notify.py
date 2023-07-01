@@ -2,8 +2,8 @@ import time
 import os
 import telegram
 
-BOT_TOKEN = int(os.environ.get("TOKEN", ""))
-GROUP_CHAT_ID = int(os.environ.get("GROUP_ID", ""))
+TOKEN = int(os.environ.get("TOKEN", ""))
+GROUP_ID = int(os.environ.get("GROUP_ID", ""))
 
 def bot_restarted():
     print("⚡ Bot Restarted ⚡")
@@ -18,8 +18,8 @@ def bot_restarted():
 
     time.sleep(10)  # Add a 10-second delay before sending the message
 
-    bot = telegram.Bot(token=BOT_TOKEN)
-    bot.send_message(chat_id=GROUP_CHAT_ID, text=f"⚡ Bot Restarted ⚡\n🥂 Runtime: {runtime:.2f} seconds")
+    bot = telegram.Bot(token=TOKEN)
+    bot.send_message(chat_id=GROUP_ID, text=f"⚡ Bot Restarted ⚡\n🥂 Runtime: {runtime:.2f} seconds")
 
 def main():
     bot_restarted()
