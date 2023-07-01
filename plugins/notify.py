@@ -2,6 +2,7 @@ import os
 import datetime
 import random
 import time
+import asyncio
 from pyrogram import Client
 
 # Generating a random restart time between 2 and 16 minutes, and 0 to 59 seconds
@@ -30,11 +31,11 @@ async def send_restart_message():
 time.sleep(5)  # Adjust the delay as needed
 
 # Check restart flag and send message
-if is_restarted:
-    async def main():
+async def main():
+    if is_restarted:
         await bot.start()
         await send_restart_message()
         await bot.stop()
 
-    with bot:
-        bot.loop.run_until_complete(main())
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
