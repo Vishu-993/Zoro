@@ -35,4 +35,4 @@ time.sleep(5)  # Adjust the delay as needed
 
 # Check restart flag and send message
 if is_restarted:
-    send_restart_message(
+    send_restart_message()
